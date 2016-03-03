@@ -19,6 +19,6 @@ public class ExampleUnitTest  {
 
     @Test
     public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
+        assertEquals("Yo, this is a test message", 4, 2 + 2);
     }
 }
