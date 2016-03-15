@@ -52,6 +52,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void changeSwitchText(View view) {
-        ((TextView)findViewById(R.id.button1)).setText("Switch OFF");
+        if(findViewById(R.id.button1).equals("Switch ON")){
+            ((TextView)findViewById(R.id.button1)).setText("Switch OFF");
+        }
+        else{
+            ((TextView)findViewById(R.id.button1)).setText("Switch ON");
+        }
+
     }
 }
