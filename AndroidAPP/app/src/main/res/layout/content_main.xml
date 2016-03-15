@@ -55,6 +55,21 @@
     </TableRow>
 
     <TableRow
+        android:id="@+id/tableRow5"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/tableRow4"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/leaderboardsButton"
+            android:id="@+id/button5" />
+    </TableRow>
+
+    <TableRow
         android:id="@+id/tableRow3"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -83,22 +98,6 @@
             android:text="@string/friendsButton"
             android:id="@+id/button4" />
     </TableRow>
-
-    <TableRow
-        android:id="@+id/tableRow5"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@+id/tableRow4"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/leaderboardsButton"
-            android:id="@+id/button5" />
-    </TableRow>
-
 
 
 
