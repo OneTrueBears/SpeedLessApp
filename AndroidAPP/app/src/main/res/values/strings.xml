@@ -8,4 +8,5 @@
     <string name="leaderboardsButton">LeaderBoards</string>
     <string name="speedLess">SpeedLess</string>
     <string name="login">Login</string>
+    <string name="title_activity_login_screen">LoginScreenActivity</string>
 </resources>

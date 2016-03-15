@@ -1,5 +1,6 @@
 package com.example.bjrnar.speedless;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -51,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+    // Actions, ex button clicks
+
     public void changeSwitchText(View view) {
         if(findViewById(R.id.button1).equals("Switch ON")){
             ((TextView)findViewById(R.id.button1)).setText("Switch OFF");
@@ -59,4 +63,18 @@ public class MainActivity extends AppCompatActivity {
             ((TextView)findViewById(R.id.button1)).setText("Switch ON");
         }
     }
-}
+
+    public void openLoginActivity (View view){
+
+        Intent intentL = new Intent(this, LoginScreenActivity.class);
+
+        startActivity(intentL);
+    }
+
+
+
+
+
+
+
+}//MainActivity END
