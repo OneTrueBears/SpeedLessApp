@@ -8,4 +8,5 @@
     <string name="friendsButton">Friends</string>
     <string name="leaderboardsButton">LeaderBoards</string>
     <string name="speedLess">SpeedLess</string>
+    <string name="login">Login</string>
 </resources>
