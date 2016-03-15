@@ -58,6 +58,5 @@ public class MainActivity extends AppCompatActivity {
         else{
             ((TextView)findViewById(R.id.button1)).setText("Switch ON");
         }
-
     }
 }
