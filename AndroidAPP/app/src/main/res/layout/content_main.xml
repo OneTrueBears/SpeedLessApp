@@ -35,8 +35,9 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/swtichButton"
-            android:id="@+id/button1" />
+            android:text="Switch ON"
+            android:id="@+id/button1"
+            android:onClick="changeSwitchText"/>
     </TableRow>
 
     <TableRow
