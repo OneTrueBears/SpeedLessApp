@@ -9,9 +9,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
+
+    SeekBar seek_bar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +31,31 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });*/
+    }
+
+    public void seekBar(){
+        seek_bar = (SeekBar) findViewById(R.id.seekBar);
+
+        seek_bar.setOnSeekBarChangeListener(
+                new SeekBar.OnSeekBarChangeListener(){
+                    int light_value;
+                    @Override
+                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
+                        light_value = progress;
+                    }
+
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar){
+
+                    }
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar){
+                    }
+                }
+        );
+
+
+
     }
 
     @Override
