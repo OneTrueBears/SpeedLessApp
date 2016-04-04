@@ -11,8 +11,8 @@ import android.widget.EditText;
 public class LoginScreenActivity extends AppCompatActivity {
 
     //fields for saving
-    private static final String UsernameSave = "";
-    private static final String PasswordSave = "";
+    private static final String UsernameSave = "UsernameSave";
+    private static final String PasswordSave = "UsernameSave";
 
 
     //fields for using
@@ -28,14 +28,22 @@ public class LoginScreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_screen);
+        setContentView(R.layout.activity_login_screen); // Inflate the GUI
+
+        // Check if app just started, or if it is being restored
+
 
         if (savedInstanceState == null){
+
+            // Just started
+
 
             Username = ""; // defaults, should they be the same as what is in the field initially (see the content xml and the fields)
             Password = "";
 
         }else{
+
+            // App is being restored
             Username = savedInstanceState.getString(UsernameSave); //Done?
             Password = savedInstanceState.getString(PasswordSave);
 
