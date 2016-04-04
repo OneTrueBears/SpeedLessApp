@@ -17,7 +17,8 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     SeekBar seek_bar;
-    public Boolean isLoggedIn = false;
+    public Boolean isLoggedIn = true;
+    public Boolean switchedOn = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });*/
-        greyOut(isLoggedIn);
+        greyOut(isLoggedIn, switchedOn);
     }
 
     public void seekBar(){
@@ -88,11 +89,17 @@ public class MainActivity extends AppCompatActivity {
     // Actions, ex button clicks
 
     public void changeSwitchText(View view) {
-        if(findViewById(R.id.button1).equals("Switch ON")){
+        Button b = (Button) findViewById(R.id.button1);
+        String ButtonText = b.getText().toString();
+        if(ButtonText.equals("Switch ON")){
             ((TextView)findViewById(R.id.button1)).setText("Switch OFF");
+            switchedOn = true;
+            greyOut(isLoggedIn, switchedOn);
         }
         else{
             ((TextView)findViewById(R.id.button1)).setText("Switch ON");
+            switchedOn = false;
+            greyOut(isLoggedIn, switchedOn);
         }
     }
 
@@ -107,26 +114,62 @@ public class MainActivity extends AppCompatActivity {
         isLoggedIn = value;
     }
 
-    public void greyOut(Boolean value){
-        if(!value){
-            findViewById(R.id.button2).setBackgroundColor(Color.parseColor("#f2f2f2"));
-            findViewById(R.id.button2).setClickable(false);
-            findViewById(R.id.button4).setBackgroundColor(Color.parseColor("#f2f2f2"));
-            findViewById(R.id.button4).setClickable(false);
-            findViewById(R.id.button5).setBackgroundColor(Color.parseColor("#f2f2f2"));
-            findViewById(R.id.button5).setClickable(false);
-            findViewById(R.id.button6).setBackgroundColor(Color.parseColor("#f2f2f2"));
-            findViewById(R.id.button6).setClickable(false);
-        }
-        if(value){
+    public void greyOut(Boolean LoggedInValue, Boolean switchedOn){
+        if(LoggedInValue&&switchedOn){
             findViewById(R.id.button2).setBackgroundColor(Color.parseColor("#b29696"));
             findViewById(R.id.button2).setClickable(true);
+            ((TextView)findViewById(R.id.button2)).setTextColor(Color.BLACK);
             findViewById(R.id.button4).setBackgroundColor(Color.parseColor("#b29696"));
             findViewById(R.id.button4).setClickable(true);
+            ((TextView)findViewById(R.id.button4)).setTextColor(Color.BLACK);
             findViewById(R.id.button5).setBackgroundColor(Color.parseColor("#b29696"));
             findViewById(R.id.button5).setClickable(true);
+            ((TextView)findViewById(R.id.button5)).setTextColor(Color.BLACK);
             findViewById(R.id.button6).setBackgroundColor(Color.parseColor("#b29696"));
             findViewById(R.id.button6).setClickable(true);
+            ((TextView)findViewById(R.id.button6)).setTextColor(Color.BLACK);
+        }
+        if(!LoggedInValue&&switchedOn){
+            findViewById(R.id.button2).setBackgroundColor(Color.parseColor("#b29696"));
+            findViewById(R.id.button2).setClickable(true);
+            ((TextView)findViewById(R.id.button2)).setTextColor(Color.BLACK);
+            findViewById(R.id.button4).setBackgroundColor(Color.parseColor("#f2f2f2"));
+            findViewById(R.id.button4).setClickable(false);
+            ((TextView)findViewById(R.id.button4)).setTextColor(Color.GRAY);
+            findViewById(R.id.button5).setBackgroundColor(Color.parseColor("#f2f2f2"));
+            findViewById(R.id.button5).setClickable(false);
+            ((TextView)findViewById(R.id.button5)).setTextColor(Color.GRAY);
+            findViewById(R.id.button6).setBackgroundColor(Color.parseColor("#f2f2f2"));
+            findViewById(R.id.button6).setClickable(false);
+            ((TextView)findViewById(R.id.button6)).setTextColor(Color.GRAY);
+        }
+        if(LoggedInValue&&!switchedOn){
+            findViewById(R.id.button2).setBackgroundColor(Color.parseColor("#f2f2f2"));
+            findViewById(R.id.button2).setClickable(false);
+            ((TextView)findViewById(R.id.button2)).setTextColor(Color.GRAY);
+            findViewById(R.id.button4).setBackgroundColor(Color.parseColor("#f2f2f2"));
+            findViewById(R.id.button4).setClickable(false);
+            ((TextView)findViewById(R.id.button4)).setTextColor(Color.GRAY);
+            findViewById(R.id.button5).setBackgroundColor(Color.parseColor("#f2f2f2"));
+            findViewById(R.id.button5).setClickable(false);
+            ((TextView)findViewById(R.id.button5)).setTextColor(Color.GRAY);
+            findViewById(R.id.button6).setBackgroundColor(Color.parseColor("#f2f2f2"));
+            findViewById(R.id.button6).setClickable(false);
+            ((TextView)findViewById(R.id.button6)).setTextColor(Color.GRAY);
+        }
+        if(!LoggedInValue&&!switchedOn){
+            findViewById(R.id.button2).setBackgroundColor(Color.parseColor("#f2f2f2"));
+            findViewById(R.id.button2).setClickable(false);
+            ((TextView)findViewById(R.id.button2)).setTextColor(Color.GRAY);
+            findViewById(R.id.button4).setBackgroundColor(Color.parseColor("#f2f2f2"));
+            findViewById(R.id.button4).setClickable(false);
+            ((TextView)findViewById(R.id.button4)).setTextColor(Color.GRAY);
+            findViewById(R.id.button5).setBackgroundColor(Color.parseColor("#f2f2f2"));
+            findViewById(R.id.button5).setClickable(false);
+            ((TextView)findViewById(R.id.button5)).setTextColor(Color.GRAY);
+            findViewById(R.id.button6).setBackgroundColor(Color.parseColor("#f2f2f2"));
+            findViewById(R.id.button6).setClickable(false);
+            ((TextView)findViewById(R.id.button6)).setTextColor(Color.GRAY);
         }
     }
 
