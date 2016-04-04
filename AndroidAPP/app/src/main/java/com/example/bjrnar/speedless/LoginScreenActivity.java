@@ -82,6 +82,10 @@ public class LoginScreenActivity extends AppCompatActivity {
         }
     };
 
+    private void LoginUser(){
+        //MainActivity.setIsLoggedIn();
+    }
+
     private TextWatcher PasswordETListener = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {

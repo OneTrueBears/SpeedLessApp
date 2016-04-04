@@ -57,16 +57,18 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login"
+        android:text="@string/loginText"
         android:id="@+id/buttonTryLogin"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/editTextLoginUsername"
-        android:layout_toEndOf="@+id/editTextLoginUsername" />
+        android:layout_toEndOf="@+id/editTextLoginUsername"
+        android:onClick="LoginUser"/>
+
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Register new user"
+        android:text="@string/registerText"
         android:id="@+id/buttonRegisterNewUser"
         android:layout_below="@+id/buttonTryLogin"
         android:layout_toRightOf="@+id/textViewLoginPassword"

@@ -1,6 +1,7 @@
 package com.example.bjrnar.speedless;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,12 +10,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     SeekBar seek_bar;
+    public Boolean isLoggedIn = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });*/
+        greyOut(isLoggedIn);
     }
 
     public void seekBar(){
@@ -97,6 +101,33 @@ public class MainActivity extends AppCompatActivity {
         Intent intentL = new Intent(this, LoginScreenActivity.class);
 
         startActivity(intentL);
+    }
+
+    public void setIsLoggedIn(Boolean value){
+        isLoggedIn = value;
+    }
+
+    public void greyOut(Boolean value){
+        if(!value){
+            findViewById(R.id.button2).setBackgroundColor(Color.parseColor("#f2f2f2"));
+            findViewById(R.id.button2).setClickable(false);
+            findViewById(R.id.button4).setBackgroundColor(Color.parseColor("#f2f2f2"));
+            findViewById(R.id.button4).setClickable(false);
+            findViewById(R.id.button5).setBackgroundColor(Color.parseColor("#f2f2f2"));
+            findViewById(R.id.button5).setClickable(false);
+            findViewById(R.id.button6).setBackgroundColor(Color.parseColor("#f2f2f2"));
+            findViewById(R.id.button6).setClickable(false);
+        }
+        if(value){
+            findViewById(R.id.button2).setBackgroundColor(Color.parseColor("#b29696"));
+            findViewById(R.id.button2).setClickable(true);
+            findViewById(R.id.button4).setBackgroundColor(Color.parseColor("#b29696"));
+            findViewById(R.id.button4).setClickable(true);
+            findViewById(R.id.button5).setBackgroundColor(Color.parseColor("#b29696"));
+            findViewById(R.id.button5).setClickable(true);
+            findViewById(R.id.button6).setBackgroundColor(Color.parseColor("#b29696"));
+            findViewById(R.id.button6).setClickable(true);
+        }
     }
 
 
