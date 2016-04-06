@@ -6,9 +6,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import nvdb.GPSTracker;
+import android.content.Context;
 
 public class URLHandler {
-	
+
+
+	private Context context;
+	public GPSTracker gps = new GPSTracker(context);
 	
 	public String getDocument(String a){
 		URL url;
@@ -83,13 +88,21 @@ public class URLHandler {
 		url+="}]},objektTyper:[{id:105,antall:10,filter:[]}]}";
 		return url;
 	}
-	
-	
+
+
+	public double GetLatitude(){
+		return gps.getLatitude();
+	}
+
+	public double GetLongitude(){
+		return gps.getLongitude();
+	}
 	
 
 	public static void main(String[] args) {
 		URLHandler urlhandler = new URLHandler();
-		String startURL = urlhandler.fromCoordinatestoURL("10.283954","63.300879");
+		System.out.println(urlhandler.GetLatitude());
+		String startURL = urlhandler.fromCoordinatestoURL("10.283954","63.300879"); //Example coordinates
 		String document = urlhandler.getDocument(startURL);
 		String veglenkeId = urlhandler.findVeglenkeID(document);
 		String veglenkePosisjon = urlhandler.findVeglenkePosisjon(document);
