@@ -1,4 +1,4 @@
-package nvdb;
+package com.example.bjrnar.speedless;
 
 /**
  * Created by rakelsa on 05.04.16.
@@ -18,7 +18,6 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
-import android.util.Log;
 
 
 public class GPSTracker extends Service implements LocationListener {

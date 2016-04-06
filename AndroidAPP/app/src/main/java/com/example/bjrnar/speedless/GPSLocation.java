@@ -1,22 +1,14 @@
-package nvdb;
+package com.example.bjrnar.speedless;
 
 
 import org.cocos2dx.lib.Cocos2dxActivity;
 import org.mumblecore.<MAIN_CLASS>.<MAIN_CLASS>;
 import android.content.Context;
-import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 import android.location.Location;
 import android.location.LocationManager;
 import android.location.LocationListener;
-import android.app.Service;
-import android.os.IBinder;
-
 
 
 public class CClocation implements LocationListener {

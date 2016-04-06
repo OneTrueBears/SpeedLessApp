@@ -1,4 +1,4 @@
-package nvdb;
+package com.example.bjrnar.speedless;
 
 
 import java.io.BufferedReader;
@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
-import nvdb.GPSTracker;
+
 import android.content.Context;
 
 public class URLHandler {
