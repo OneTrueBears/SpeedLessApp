@@ -34,10 +34,11 @@
 
         <Button
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="40dp"
             android:text="Switch ON"
             android:id="@+id/button1"
-            android:onClick="changeSwitchText"/>
+            android:onClick="changeSwitchText"
+            android:background="#b29696" />
     </TableRow>
 
     <TableRow
@@ -66,10 +67,11 @@
 
         <Button
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="40dp"
             android:text="@string/login"
             android:id="@+id/button2"
-            android:onClick="openLoginActivity"/>
+            android:onClick="openLoginActivity"
+            android:background="#b29696" />
     </TableRow>
 
     <TableRow
@@ -82,9 +84,10 @@
 
         <Button
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="40dp"
             android:text="@string/statisticsButton"
-            android:id="@+id/button4" />
+            android:id="@+id/button4"
+            android:background="#b29696" />
     </TableRow>
 
     <TableRow
@@ -97,9 +100,10 @@
 
         <Button
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="40dp"
             android:text="@string/friendsButton"
-            android:id="@+id/button5" />
+            android:id="@+id/button5"
+            android:background="#b29696" />
     </TableRow>
 
     <TableRow
@@ -112,9 +116,10 @@
 
         <Button
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="40dp"
             android:text="@string/leaderboardsButton"
-            android:id="@+id/button6" />
+            android:id="@+id/button6"
+            android:background="#b29696" />
     </TableRow>
 
 
