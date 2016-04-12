@@ -15,13 +15,13 @@ public class URLHandler {
 	private Context context;
 	//public GPSTracker gps = new GPSTracker(context); HAD GPS OBJECT
 	
-	public String getDocument(String a){
+	public String getDocument(String urlString){
 		URL url;
 		String document = "";
 		
 		try{
 			
-			url = new URL(a);
+			url = new URL(urlString);
 			
 			URLConnection conn = url.openConnection();
 			
@@ -87,6 +87,11 @@ public class URLHandler {
 		url+=veglenkePosisjon;
 		url+="}]},objektTyper:[{id:105,antall:10,filter:[]}]}";
 		return url;
+	}
+
+	public void InitFromCoord (String coord1, String coord2){ //make urlhandler first
+		//gather some setup methods here
+
 	}
 
 /* HAD GPS OBJ USE
