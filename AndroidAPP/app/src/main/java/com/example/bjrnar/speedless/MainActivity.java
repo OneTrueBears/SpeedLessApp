@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,11 +15,17 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import java.io.IOException;
+
 public class MainActivity extends AppCompatActivity {
 
     SeekBar seek_bar;
     public Boolean isLoggedIn = true;
     public Boolean switchedOn = false;
+
+    //Bt - Temp?
+    Bluetooth bt = new Bluetooth();
+    boolean lightOn = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +44,9 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });*/
+        connectBluetooth(); // INIT BLUETOOTH
         greyOut(isLoggedIn, switchedOn);
+
     }
 
     public void seekBar(){
@@ -122,6 +131,8 @@ public class MainActivity extends AppCompatActivity {
     // Actions, ex button clicks
 
     public void changeSwitchText(View view) {
+        toggleLight();
+        //Swap text
         Button b = (Button) findViewById(R.id.button1);
         String ButtonText = b.getText().toString();
         if(ButtonText.equals("Switch ON")){
@@ -206,8 +217,52 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+// Bluetooth
 
+    public void connectBluetooth() {
+        try {
+            bt.init();
 
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void writeBluetooth(Double speed, int speedlimit){
+        try{
+            bt.write("speedlimit:" + Integer.toString(speedlimit));
+            Log.d("info", "speedlimit sent");
+            bt.run();
+            bt.write("speed:" + speed.toString());
+            Log.d("info", "speed sent");
+            bt.run();
+        }
+        catch(IOException e){
+            Log.e("error", "IOException caught when writing to Bluetooth socket.");
+        }
+    }
+    public void writeBluetooth(boolean enable){
+        try{
+            bt.write( "enable:" + enable );
+            Log.d("info", "speedlimit sent");
+            bt.run();
+        }
+        catch(IOException e){
+            Log.e("error", "IOException caught when writing to Bluetooth socket.");
+        }
+    }
+
+    public void toggleLight(){
+        if(lightOn){
+            writeBluetooth(false);
+            lightOn = false;
+        }
+        else{
+            writeBluetooth(true);
+            lightOn = true;
+        }
+
+    }
 
 
 
