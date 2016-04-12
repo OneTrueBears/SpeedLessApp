@@ -13,7 +13,7 @@ public class URLHandler {
 
 
 	private Context context;
-	public GPSTracker gps = new GPSTracker(context);
+	//public GPSTracker gps = new GPSTracker(context); HAD GPS OBJECT
 	
 	public String getDocument(String a){
 		URL url;
@@ -89,7 +89,7 @@ public class URLHandler {
 		return url;
 	}
 
-
+/* HAD GPS OBJ USE
 	public double GetLatitude(){
 		return gps.getLatitude();
 	}
@@ -97,8 +97,8 @@ public class URLHandler {
 	public double GetLongitude(){
 		return gps.getLongitude();
 	}
-	
-
+*/
+/*
 	public static void main(String[] args) {
 		URLHandler urlhandler = new URLHandler();
 		System.out.println(urlhandler.GetLatitude());
@@ -113,5 +113,5 @@ public class URLHandler {
 		
 
 	}
-
+*/
 }
