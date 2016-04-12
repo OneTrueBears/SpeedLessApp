@@ -1,12 +1,12 @@
 package com.example.bjrnar.speedless;
 
-
+/* TEMP COMMENTED OUT, MIGHT BE DELETED FOR GOOGLE API
 import org.cocos2dx.lib.Cocos2dxActivity;
 import org.mumblecore.<MAIN_CLASS>.<MAIN_CLASS>;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
-import android.location.Location;
+import android.location.Location; //NO USE?
 import android.location.LocationManager;
 import android.location.LocationListener;
 
@@ -175,3 +175,4 @@ public class CClocation implements LocationListener {
     }
 
 }
+*/
