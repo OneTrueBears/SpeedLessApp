@@ -53,7 +53,7 @@ public class ServiceForBluetooth extends Service {
     @Override
     public void onCreate() {
 
-        HandlerThread thread = new HandlerThread("ServiceStartArguments", Process.THREAD_PRIORITY_BACKGROUND);
+        HandlerThread thread = new HandlerThread("ServiceStartArguments", 10);
         thread.start();
 
         // Get the HandlerThread's Looper and use it for our Handler
@@ -64,6 +64,7 @@ public class ServiceForBluetooth extends Service {
     public ServiceForBluetooth() {
         super();
         connectBluetooth();
+        //mServiceHandler.handleMessage();
         Log.d("info", "Bluetooth connected. Trying to send speed and speedlimit");
         try {
             Log.d("info", "delaying 3 second");
@@ -72,8 +73,8 @@ public class ServiceForBluetooth extends Service {
             Log.e("error", "Interrupted Exception when timesleep");
         }
         //mainThread();
-        writeBluetooth(80.0);
-        //writeBluetooth(70.0);
+        //writeSpeed(85.0);
+        //writeSpeedlimit(80);
 
     }
 
@@ -96,14 +97,14 @@ public class ServiceForBluetooth extends Service {
                 Log.e("error", "Interrupted Exception");
             }
             Log.d("info", "Writing speedlimit :" + speedlimit);
-            writeBluetooth(speedlimit);
+            writeSpeedlimit(speedlimit);
             try {
                 Log.d("info", "delaying 1 second");
                 TimeUnit.SECONDS.sleep(1);
             }catch(InterruptedException e){
                 Log.e("error", "Interrupted Exception when timesleep");
             }
-            writeBluetooth(speed.get(i));
+            writeSpeed(speed.get(i));
             try {
                 TimeUnit.SECONDS.sleep(1);
             }catch(InterruptedException e){
@@ -122,7 +123,7 @@ public class ServiceForBluetooth extends Service {
         }
     }
 
-    public void writeBluetooth(Double speed){
+    public void writeSpeed(Double speed){
         try{
             bt.write("speed:" + speed.toString());
             Log.d("info", "speed sent");
@@ -133,7 +134,7 @@ public class ServiceForBluetooth extends Service {
         }
     }
 
-    public void writeBluetooth(float speedlimit){
+    public void writeSpeedlimit(float speedlimit){
         try{
             bt.write("speedlimit:" + Float.toString(speedlimit));
             Log.d("info", "speedlimit sent");

@@ -1,5 +1,6 @@
 package com.example.bjrnar.speedless;
 
+import android.app.IntentService;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -140,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
         Button b = (Button) findViewById(R.id.button1);
         String ButtonText = b.getText().toString();
         if(ButtonText.equals("Switch ON")){
-            ((TextView)findViewById(R.id.button1)).setText("Switch OFF");
+            ((TextView) findViewById(R.id.button1)).setText("Switch OFF");
             switchedOn = true;
             greyOut(isLoggedIn, switchedOn);
         }
