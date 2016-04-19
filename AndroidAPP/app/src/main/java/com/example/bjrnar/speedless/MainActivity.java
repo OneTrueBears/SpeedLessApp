@@ -19,6 +19,10 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
+    //These are the key values for saving
+    private static final String isLoggedInState = "isLoggedInState";
+    private static final String switchedOnState = "switchedOnState";
+
     SeekBar seek_bar;
     public Boolean isLoggedIn = true;
     public Boolean switchedOn = false;
@@ -45,6 +49,20 @@ public class MainActivity extends AppCompatActivity {
             }
         });*/
         connectBluetooth(); // INIT BLUETOOTH
+
+        if (savedInstanceState == null){
+            // Just started
+
+            switchedOn = true;
+            isLoggedIn = true;
+
+        }else{
+
+            // App is being restored
+            isLoggedIn = savedInstanceState.getBoolean(isLoggedInState); //Done?
+            switchedOn = savedInstanceState.getBoolean(switchedOnState);
+
+        }
         greyOut(isLoggedIn, switchedOn);
 
     }
@@ -70,8 +88,6 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
 
-
-
     }
 
     // Activity lifecycle callbacks, for when we need them
@@ -90,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+
         // Another activity is taking focus (this activity is about to be "paused").
     }
     @Override
@@ -135,13 +152,13 @@ public class MainActivity extends AppCompatActivity {
         //Swap text
         Button b = (Button) findViewById(R.id.button1);
         String ButtonText = b.getText().toString();
-        if(ButtonText.equals("Switch ON")){
-            ((TextView)findViewById(R.id.button1)).setText("Switch OFF");
+        if(ButtonText.equals("Switch ON Lights")){
+            ((TextView)findViewById(R.id.button1)).setText("Switch OFF Lights");
             switchedOn = true;
             greyOut(isLoggedIn, switchedOn);
         }
         else{
-            ((TextView)findViewById(R.id.button1)).setText("Switch ON");
+            ((TextView)findViewById(R.id.button1)).setText("Switch ON Lights");
             switchedOn = false;
             greyOut(isLoggedIn, switchedOn);
         }
@@ -262,6 +279,13 @@ public class MainActivity extends AppCompatActivity {
             lightOn = true;
         }
 
+    }
+
+    public void onSaveInstance(Bundle savedInstanceState){
+        savedInstanceState.putBoolean(isLoggedInState, isLoggedIn);
+        savedInstanceState.putBoolean(switchedOnState, switchedOn);
+
+        super.onSaveInstanceState(savedInstanceState);
     }
 
 
