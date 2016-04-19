@@ -24,8 +24,8 @@ public class MainActivity extends AppCompatActivity {
     public Boolean switchedOn = false;
 
     //Bt - Temp?
-    Bluetooth bt = new Bluetooth();
-    boolean lightOn = true;
+
+   // boolean lightOn = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +44,11 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });*/
-        connectBluetooth(); // INIT BLUETOOTH
+        //connectBluetooth(); // INIT BLUETOOTH
+
+        Intent intentService = new Intent(this, ServiceForBluetooth.class);
+        startService(intentService);
+
         greyOut(isLoggedIn, switchedOn);
 
     }
@@ -131,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
     // Actions, ex button clicks
 
     public void changeSwitchText(View view) {
-        toggleLight();
+        //toggleLight();
         //Swap text
         Button b = (Button) findViewById(R.id.button1);
         String ButtonText = b.getText().toString();
@@ -218,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 // Bluetooth
-
+/*
     public void connectBluetooth() {
         try {
             bt.init();
@@ -262,7 +266,7 @@ public class MainActivity extends AppCompatActivity {
             lightOn = true;
         }
 
-    }
+    }*/
 
 
 

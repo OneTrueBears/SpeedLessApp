@@ -69,6 +69,7 @@ public class Bluetooth {
                         try{
                             Log.d("Info", "Trying to connect");
                             socket.connect();
+                            Log.d("Info", "Connection succesful");
                         }
                         catch(java.io.IOException e){
                             Log.e("",e.getMessage());
@@ -96,7 +97,7 @@ public class Bluetooth {
                             }
                         }
 
-                        Log.d("Info", "Connection succesful");
+
                         outputStream = socket.getOutputStream();
                         inStream = socket.getInputStream();
                     }
