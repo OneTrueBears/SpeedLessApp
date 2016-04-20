@@ -1,6 +1,5 @@
 package com.example.bjrnar.speedless;
 
-import android.app.IntentService;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -17,8 +16,15 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
+
+    //These are the key values for saving
+    private static final String isLoggedInState = "isLoggedInState";
+    private static final String switchedOnState = "switchedOnState";
 
     SeekBar seek_bar;
     public Boolean isLoggedIn = true;
@@ -26,7 +32,18 @@ public class MainActivity extends AppCompatActivity {
 
     //Bt - Temp?
 
-   // boolean lightOn = true;
+    Bluetooth bt = new Bluetooth();
+    boolean lightOn = true;
+    //float speedlimit;
+    ArrayList<Double> speed = new ArrayList<Double>(Arrays.asList(45.0, 52.0, 35.0, 29.0, 39.0, 45.0, 51.0, 55.0, 59.0, 45.0, 33.0, 30.0, 35.0, 32.0, 35.0, 36.0, 45.0, 55.0));
+    ArrayList<Integer> speedlimits = new ArrayList<Integer>(Arrays.asList(50,50,30,30,50,50,50,50,50,30,30,30,50,30,30,30,50,50));
+    String[] coordinates = new String[]{"63.421943" , "10.396705" , "63.420941",
+            "10.400418","63.419477","10.404227","63.419266","10.404978", "63.420305","10.405166",
+            "63.421716","10.400689","63.422722","10.395389","63.421715", "10.394824",
+            "63.419584", "10.395918", "63.417942", "10.395918", "63.418489", "10.394759", "63.419070",
+            "10.395295","63.419843", "10.395799","63.420352", "10.394812","63.420640", "10.393664",
+            "63.421082", "10.394340", "63.421994", "10.394673", "63.422752", "10.394469"};
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +62,35 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });*/
-        //connectBluetooth(); // INIT BLUETOOTH
+        connectBluetooth(); // INIT BLUETOOTH
 
-        Intent intentService = new Intent(this, ServiceForBluetooth.class);
-        startService(intentService);
+        if (savedInstanceState == null){
+            // Just started
 
+            switchedOn = true;
+            isLoggedIn = true;
+
+        }else{
+
+            // App is being restored
+            isLoggedIn = savedInstanceState.getBoolean(isLoggedInState); //Done?
+            switchedOn = savedInstanceState.getBoolean(switchedOnState);
+
+        }
         greyOut(isLoggedIn, switchedOn);
+
+       // Intent intentService = new Intent(this, ServiceForBluetooth.class);
+        //startService(intentService);
+
+       /*try {
+            Log.d("info", "delaying 5 seconds, before running demo");
+            TimeUnit.SECONDS.wait(3000);
+        }catch(InterruptedException e){
+            Log.e("error", "Interrupted Exception when timesleep");
+        }
+        main();*/
+
+
 
     }
 
@@ -58,24 +98,24 @@ public class MainActivity extends AppCompatActivity {
         seek_bar = (SeekBar) findViewById(R.id.seekBar);
 
         seek_bar.setOnSeekBarChangeListener(
-                new SeekBar.OnSeekBarChangeListener(){
+                new SeekBar.OnSeekBarChangeListener() {
                     int light_value;
+
                     @Override
-                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
+                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                         light_value = progress;
                     }
 
                     @Override
-                    public void onStartTrackingTouch(SeekBar seekBar){
+                    public void onStartTrackingTouch(SeekBar seekBar) {
 
                     }
+
                     @Override
-                    public void onStopTrackingTouch(SeekBar seekBar){
+                    public void onStopTrackingTouch(SeekBar seekBar) {
                     }
                 }
         );
-
-
 
     }
 
@@ -85,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
         // The activity is about to become visible.
     }
     @Override
@@ -95,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+
         // Another activity is taking focus (this activity is about to be "paused").
     }
     @Override
@@ -136,17 +178,17 @@ public class MainActivity extends AppCompatActivity {
     // Actions, ex button clicks
 
     public void changeSwitchText(View view) {
-        //toggleLight();
+        toggleLight();
         //Swap text
         Button b = (Button) findViewById(R.id.button1);
         String ButtonText = b.getText().toString();
-        if(ButtonText.equals("Switch ON")){
-            ((TextView) findViewById(R.id.button1)).setText("Switch OFF");
+        if(ButtonText.equals("Switch ON Lights")){
+            ((TextView)findViewById(R.id.button1)).setText("Switch OFF Lights");
             switchedOn = true;
             greyOut(isLoggedIn, switchedOn);
         }
         else{
-            ((TextView)findViewById(R.id.button1)).setText("Switch ON");
+            ((TextView)findViewById(R.id.button1)).setText("Switch ON Lights");
             switchedOn = false;
             greyOut(isLoggedIn, switchedOn);
         }
@@ -223,7 +265,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
 // Bluetooth
-/*
+
+    public void main(){
+        for(int i= 0; i < speed.size(); i++){
+            writeSpeed(speed.get(i));
+            try {
+                Log.d("info", "delaying 1 second");
+                TimeUnit.SECONDS.sleep(1);
+            }catch(InterruptedException e){
+                Log.e("error", "Interrupted Exception when timesleep");
+            }
+            writeSpeedlimit(speedlimits.get(i));
+            try {
+                Log.d("info", "delaying 1 second");
+                TimeUnit.SECONDS.sleep(1);
+            }catch(InterruptedException e){
+                Log.e("error", "Interrupted Exception when timesleep");
+            }
+
+        }
+
+    }
+
     public void connectBluetooth() {
         try {
             bt.init();
@@ -233,11 +296,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void writeBluetooth(Double speed, int speedlimit){
+    public void writeSpeed(Double speed){
         try{
-            bt.write("speedlimit:" + Integer.toString(speedlimit));
-            Log.d("info", "speedlimit sent");
-            bt.run();
             bt.write("speed:" + speed.toString());
             Log.d("info", "speed sent");
             bt.run();
@@ -245,6 +305,18 @@ public class MainActivity extends AppCompatActivity {
         catch(IOException e){
             Log.e("error", "IOException caught when writing to Bluetooth socket.");
         }
+    }
+
+    public void writeSpeedlimit(int speedlimit){
+        try{
+            bt.write("speedlimit:" + Float.toString(speedlimit));
+            Log.d("info", "speedlimit sent");
+            bt.run();
+        }
+        catch(IOException e){
+            Log.e("error", "IOException caught when writing to Bluetooth socket.");
+        }
+
     }
     public void writeBluetooth(boolean enable){
         try{
@@ -267,7 +339,14 @@ public class MainActivity extends AppCompatActivity {
             lightOn = true;
         }
 
-    }*/
+    }
+
+    public void onSaveInstance(Bundle savedInstanceState){
+        savedInstanceState.putBoolean(isLoggedInState, isLoggedIn);
+        savedInstanceState.putBoolean(switchedOnState, switchedOn);
+
+        super.onSaveInstanceState(savedInstanceState);
+    }
 
 
 

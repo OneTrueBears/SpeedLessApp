@@ -20,51 +20,23 @@ public class ServiceForBluetooth extends Service {
 
     Bluetooth bt = new Bluetooth();
     boolean lightOn = true;
-    float speedlimit;
-    ArrayList<Double> speed = new ArrayList<Double>(Arrays.asList(20.0, 40.0, 40.0, 30.0, 30.0, 35.0, 40.0, 50.0, 45.0, 50.0));
+    //float speedlimit;
+    ArrayList<Double> speed = new ArrayList<Double>(Arrays.asList(45.0,52.0,35.0,29.0,39.0,45.0,51.0,55.0,59.0,45.0,33.0,30.0,35.0,32.0,35.0,36.0,45.0, 55.0));
+    ArrayList<Integer> speedlimits = new ArrayList<Integer>(Arrays.asList(50,50,30,30,50,50,50,50,50,30,30,30,50,30,30,30,50,50));
+    String[] coordinates = new String[]{"63.421943" , "10.396705" , "63.420941",
+            "10.400418","63.419477","10.404227","63.419266","10.404978", "63.420305","10.405166",
+            "63.421716","10.400689","63.422722","10.395389","63.421715", "10.394824",
+            "63.419584", "10.395918", "63.417942", "10.395918", "63.418489", "10.394759", "63.419070",
+            "10.395295","63.419843", "10.395799","63.420352", "10.394812","63.420640", "10.393664",
+            "63.421082", "10.394340", "63.421994", "10.394673", "63.422752", "10.394469"};
 
-    Looper mServiceLooper;
-    ServiceHandler mServiceHandler;
-
-    private final class ServiceHandler extends Handler {
-        public ServiceHandler(Looper looper) {
-            super(looper);
-        }
-        @Override
-        public void handleMessage(Message msg) {
-            // Normally we would do some work here, like download a file.
-            // For our sample, we just sleep for 5 seconds.
-            long endTime = System.currentTimeMillis() + 5*1000;
-            while (System.currentTimeMillis() < endTime) {
-                synchronized (this) {
-                    try {
-                        wait(endTime - System.currentTimeMillis());
-                    } catch (Exception e) {
-                    }
-                }
-            }
-            // Stop the service using the startId, so that we don't stop
-            // the service in the middle of handling another job
-            stopSelf(msg.arg1);
-        }
+    public void onCreate(){
+        connectBluetooth();
     }
 
-
-    @Override
-    public void onCreate() {
-
-        HandlerThread thread = new HandlerThread("ServiceStartArguments", 10);
-        thread.start();
-
-        // Get the HandlerThread's Looper and use it for our Handler
-        mServiceLooper = thread.getLooper();
-        mServiceHandler = new ServiceHandler(mServiceLooper);
-    }
-
-    public ServiceForBluetooth() {
+    /*public ServiceForBluetooth() {
         super();
         connectBluetooth();
-        //mServiceHandler.handleMessage();
         Log.d("info", "Bluetooth connected. Trying to send speed and speedlimit");
         try {
             Log.d("info", "delaying 3 second");
@@ -72,11 +44,9 @@ public class ServiceForBluetooth extends Service {
         }catch(InterruptedException e){
             Log.e("error", "Interrupted Exception when timesleep");
         }
-        //mainThread();
-        //writeSpeed(85.0);
-        //writeSpeedlimit(80);
+        mainThread();
 
-    }
+    }*/
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -85,33 +55,25 @@ public class ServiceForBluetooth extends Service {
     }
 
 
-
     public void mainThread(){
-        Log.d("info", "Running URL + speed");
-        URLHandler url = new URLHandler();
-        for(int i = 0; i < speed.size(); i++ ){
+        for(int i= 0; i < speed.size(); i++){
+            writeSpeed(speed.get(i));
             try {
-                Log.d("info", "retreiving speedlimit");
-                speedlimit = url.getSpeed();
-            }catch(InterruptedException e){
-                Log.e("error", "Interrupted Exception");
-            }
-            Log.d("info", "Writing speedlimit :" + speedlimit);
-            writeSpeedlimit(speedlimit);
-            try {
-                Log.d("info", "delaying 1 second");
+                Log.d("info", "delaying 3 second");
                 TimeUnit.SECONDS.sleep(1);
             }catch(InterruptedException e){
                 Log.e("error", "Interrupted Exception when timesleep");
             }
-            writeSpeed(speed.get(i));
+            writeSpeedlimit(speedlimits.get(i));
             try {
+                Log.d("info", "delaying 3 second");
                 TimeUnit.SECONDS.sleep(1);
             }catch(InterruptedException e){
                 Log.e("error", "Interrupted Exception when timesleep");
             }
 
         }
+
     }
 
     public void connectBluetooth() {
@@ -134,7 +96,7 @@ public class ServiceForBluetooth extends Service {
         }
     }
 
-    public void writeSpeedlimit(float speedlimit){
+    public void writeSpeedlimit(int speedlimit){
         try{
             bt.write("speedlimit:" + Float.toString(speedlimit));
             Log.d("info", "speedlimit sent");
