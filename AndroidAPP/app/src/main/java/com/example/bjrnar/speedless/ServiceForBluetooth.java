@@ -18,6 +18,8 @@ import java.util.concurrent.TimeUnit;
 
 public class ServiceForBluetooth extends Service {
 
+    //NOW A DUD - DELETE AFTER INCO
+
     Bluetooth bt = new Bluetooth();
     boolean lightOn = true;
     float speedlimit;

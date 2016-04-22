@@ -37,17 +37,9 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
-        //connectBluetooth(); // INIT BLUETOOTH
 
-        Intent intentService = new Intent(this, ServiceForBluetooth.class);
+        //Start service
+        Intent intentService = new Intent(this, MyService.class);
         startService(intentService);
 
         greyOut(isLoggedIn, switchedOn);
@@ -58,19 +50,21 @@ public class MainActivity extends AppCompatActivity {
         seek_bar = (SeekBar) findViewById(R.id.seekBar);
 
         seek_bar.setOnSeekBarChangeListener(
-                new SeekBar.OnSeekBarChangeListener(){
+                new SeekBar.OnSeekBarChangeListener() {
                     int light_value;
+
                     @Override
-                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
+                    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                         light_value = progress;
                     }
 
                     @Override
-                    public void onStartTrackingTouch(SeekBar seekBar){
+                    public void onStartTrackingTouch(SeekBar seekBar) {
 
                     }
+
                     @Override
-                    public void onStopTrackingTouch(SeekBar seekBar){
+                    public void onStopTrackingTouch(SeekBar seekBar) {
                     }
                 }
         );
