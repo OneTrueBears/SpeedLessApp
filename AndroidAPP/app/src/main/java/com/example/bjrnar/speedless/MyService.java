@@ -17,6 +17,8 @@ public class MyService extends Service {
     handle main to service communication, need?
     */
 
+    //Prev one used workthread logic, this one should be multithread. Can comunicate accross threads w handlers.
+
    //LIFECYCLE
 
     @Override
@@ -61,7 +63,9 @@ public class MyService extends Service {
         (before it calls either onStartCommand() or onBind()). If the service is already running, this method is not called.
          */
 
-    //Bluetooth - THREAD 1------------------------------
+        //Real work ahead -- MULTI-THREADING ---
+
+        //Bluetooth - THREAD 1------------------------------
         //the thread
         HandlerThread BT_handlerThread = new HandlerThread("BT_HandlerThread");
         BT_handlerThread.start();
