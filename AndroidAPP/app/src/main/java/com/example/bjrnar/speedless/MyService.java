@@ -126,6 +126,9 @@ public class MyService extends Service {
         // GPS thread start? THREAD  3________-------
 
 
+        // GPS thread END?
+
+
     }// onCreate end
 
 
