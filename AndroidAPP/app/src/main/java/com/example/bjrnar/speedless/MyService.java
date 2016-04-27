@@ -29,12 +29,16 @@ public class MyService extends Service {
 
     Bluetooth bt = new Bluetooth();
     boolean lightOn = true;
+    boolean alive = true;
 
     //simulated speed array, its increment
     ArrayList<Double> speed = new ArrayList<Double>(Arrays.asList(45.0, 52.0, 35.0, 29.0, 39.0, 45.0, 51.0, 55.0, 59.0, 45.0, 33.0, 30.0, 35.0, 32.0, 35.0, 36.0, 45.0, 55.0));
     int increment = 0;
 
     URLHandler url = new URLHandler();
+
+    HandlerThread BT_handlerThread;
+    HandlerThread VDB_handlerThread;
 
    //LIFECYCLE
 
@@ -62,7 +66,20 @@ public class MyService extends Service {
         }*/
 
 
-        return START_REDELIVER_INTENT;
+        return START_NOT_STICKY;
+        /* IT WOULD NOT DIE with the other values!!! Bloody made our own intrusive little...
+        *Thus - not sticky.... DIE DIE DIE o service
+        *The return value from onStartCommand() must be one of the following constants:
+        *START_NOT_STICKY
+        *If the system kills the service after onStartCommand() returns, do not recreate the service, unless there are pending intents to deliver. This is the safest option to avoid running your service when not necessary and when your application can simply restart any unfinished jobs.
+        *START_STICKY
+        *If the system kills the service after onStartCommand() returns, recreate the service and call onStartCommand(), but do not redeliver the last intent. Instead, the system calls onStartCommand() with a null intent, unless there were pending intents to start the service, in which case, those intents are delivered. This is suitable for media players (or similar services) that are not executing commands, but running indefinitely and waiting for a job.
+        *START_REDELIVER_INTENT
+        *If the system kills the service after onStartCommand() returns, recreate the service and call onStartCommand() with the last intent that was delivered to the service. Any pending intents are delivered in turn. This is suitable for services that are actively performing a job that should be immediately resumed, such as downloading a file.
+        *
+        *
+        * */
+
     }
 
     @Override
@@ -78,17 +95,7 @@ public class MyService extends Service {
    */
 
 
-    @Override
-    public void onDestroy(){
-        /*
-        The system calls this method when the service is no longer used and is being destroyed. Your service should implement this
-        to clean up any resources such as threads, registered listeners, receivers, etc. This is the last call the service receive
-         */
 
-
-        //lol infinite loop?V
-        //stopSelf();
-    }
 
 
 
@@ -105,7 +112,8 @@ public class MyService extends Service {
 
         //Bluetooth - THREAD 1------------------------------
         //the thread
-        HandlerThread BT_handlerThread = new HandlerThread("BT_HandlerThread");
+        BT_handlerThread = new HandlerThread("BT_HandlerThread");
+        BT_handlerThread.setDaemon(true);
         BT_handlerThread.start();
 
         // Create a handler attached to the BT_handlerThread's Looper
@@ -143,7 +151,7 @@ public class MyService extends Service {
                     } else {
                         increment += 1;
                     }
-                } else if (msg.what == 1) { // LIGHTS
+                } else if (msg.what == 1) { // LIGHTS STUFF, from mainactivity
 
                     if(Boolean.parseBoolean(msg.obj.toString()) == true){
                         writeBluetooth(true);
@@ -167,42 +175,34 @@ public class MyService extends Service {
 
             }
         };
-
-        //Create runnable to post
-        Runnable bTr;
-        bTr = new Runnable() {
-            @Override
-            public void run() {
-                // Block of code to execute - DO bluetooth thread stuff here
-
-                connectBluetooth();
-
-            }
-        };
-
-        BThandler.post(bTr); // GOOOOO BT
-
         // BT thread stuff END
 
 
 
         //URLHandler - VDB speedlimit from coordinate, internett - THREAD 2-----------------
         //the thread
-        HandlerThread VDB_handlerThread = new HandlerThread("VDB_HandlerThread");
+        VDB_handlerThread = new HandlerThread("VDB_HandlerThread");
+        VDB_handlerThread.setDaemon(true);
         VDB_handlerThread.start();
 
         // Create a handler attached to the VDB_handlerThread's Looper
         //use this to .sendMessage(Message) AND .post(runnable) INTO the thread
-        Handler VDBhandler = new Handler(VDB_handlerThread.getLooper()) {
+        final Handler VDBhandler = new Handler(VDB_handlerThread.getLooper()) {
             @Override
             public void handleMessage(Message msg) {
                 // Process messages here
+
+
+
+
             }
         };
+        // URL thread END
 
-        //Create runnable to post
-        Runnable vDBr;
-        vDBr = new Runnable() {
+        //create runnable that the next one posts, such that BT may finish connecting first
+
+        final Runnable vDb;
+        vDb = new Runnable() {
             @Override
             public void run() {
                 // Block of code to execute - DO URLhandler / VDB stuff here
@@ -210,17 +210,16 @@ public class MyService extends Service {
 
                 float URLspeedLimit;
 
-                while (true) {
+                while (alive) {
 
                     // Retrives and sends to BT-thread via BThandler, a speedlimit found by URLhandler as it increments
                     // through a coordinate list on each call
                     try {
                         Log.d("info", "retreiving url speedlimit");
-                        URLspeedLimit = url.getSpeed();
+                        URLspeedLimit = url.getSpeed(); //actually get speedlimit, currenly from internal coordinate list
 
                         Message msgSL = Message.obtain(BThandler,0);
 
-                        //Message msgSL = Message.obtain();
                         msgSL.obj = URLspeedLimit;
                         BThandler.sendMessage(msgSL);
                     }catch(InterruptedException e){
@@ -237,23 +236,60 @@ public class MyService extends Service {
                     }
 
 
-                }
+                }//while end
 
 
             }
         };
 
-        VDBhandler.post(vDBr); // GOOOOO VDB
 
-        // URL thread END
+
+        //Create runnable to post to BTthread to get it all running
+        Runnable bTr;
+        bTr = new Runnable() {
+            @Override
+            public void run() {
+                // Block of code to execute - DO bluetooth thread stuff here
+
+                connectBluetooth();
+
+                // to start VDB work AFTER bt has connected
+                VDBhandler.post(vDb);
+
+
+            }
+        };
+
+        //post the above to BT
+        //this exits and both threads now do work
+        //VDB in a loop, and BT by message response from VDB
+        BThandler.post(bTr); // GOOOOO
+
+
+
+
 
         // GPS thread start? THREAD  3________-------
+        //?
 
 
         // GPS thread END?
 
 
     }// onCreate end
+
+    @Override
+    public void onDestroy(){
+        /*
+        The system calls this method when the service is no longer used and is being destroyed. Your service should implement this
+        to clean up any resources such as threads, registered listeners, receivers, etc. This is the last call the service receive
+         */
+        alive = false; //dead... hopefully
+        BT_handlerThread.quit();
+        VDB_handlerThread.quit();
+        super.onDestroy();
+
+    }
 
 
 //methods -- still threaded use?
