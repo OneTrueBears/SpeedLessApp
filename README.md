@@ -2,8 +2,8 @@
 Repository for the SpeedLess application.
 README
 
-In the event that the Master branch is not the most up to date one, the substitute master branch is:
--Morning+A-M-planA
+In the event that the Master branch is not the most up to date one, the substitute master branch is: Morning+A-M-planA
+-DISREGARD the above sentence! Currently, Master is up to date.
 
 
 This project/product prototype currently consists of this set of components and functionality:
