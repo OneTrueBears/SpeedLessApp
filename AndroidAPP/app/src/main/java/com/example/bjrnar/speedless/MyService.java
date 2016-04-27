@@ -42,6 +42,26 @@ public class MyService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         //return super.onStartCommand(intent, flags, startId);
         //return START_STICKY;
+        /*try {
+            boolean bol = intent.getExtras().getBoolean("msg");
+
+            Message msgB = Message.obtain(BThandler,0);
+
+            //Message msgSL = Message.obtain();
+            msgSL.obj = URLspeedLimit;
+            BThandler.sendMessage(msgSL);
+            if (bol == true){
+
+
+            } else {
+
+            }
+
+        } catch (Exception e){
+
+        }*/
+
+
         return START_REDELIVER_INTENT;
     }
 
@@ -56,7 +76,6 @@ public class MyService extends Service {
 
     }
    */
-
 
 
     @Override
@@ -150,19 +169,13 @@ public class MyService extends Service {
         };
 
         //Create runnable to post
-        Runnable bTr = new Runnable() {
+        Runnable bTr;
+        bTr = new Runnable() {
             @Override
             public void run() {
                 // Block of code to execute - DO bluetooth thread stuff here
-                //while?
 
                 connectBluetooth();
-
-
-
-
-
-
 
             }
         };
@@ -188,7 +201,8 @@ public class MyService extends Service {
         };
 
         //Create runnable to post
-        Runnable vDBr = new Runnable() {
+        Runnable vDBr;
+        vDBr = new Runnable() {
             @Override
             public void run() {
                 // Block of code to execute - DO URLhandler / VDB stuff here

@@ -40,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         //Start service
-        Intent intentService = new Intent(this, MyService.class);
-        startService(intentService);
+        Intent Service = new Intent(this, MyService.class);
+        startService(Service);
 
         greyOut(isLoggedIn, switchedOn);
 
@@ -130,31 +130,38 @@ public class MainActivity extends AppCompatActivity {
 
     // Actions, ex button clicks
 
-    /*!!!!!!!!!!!! get back in public void changeSwitchText(View view) {
+    public void changeSwitchText(View view) {
         //toggleLight();
         //Swap text
         Button b = (Button) findViewById(R.id.button1);
         String ButtonText = b.getText().toString();
         //send msg stuff
-        Message msgLight = Message.obtain(BThandler, 1);
+        Bundle bun = new Bundle();
+
 
 
         if(ButtonText.equals("Switch ON")){
             ((TextView) findViewById(R.id.button1)).setText("Switch OFF");
             switchedOn = true;
-            msgLight.obj = true;
+            bun.putBoolean("msg",true);
             greyOut(isLoggedIn, switchedOn);
         }
         else{
             ((TextView)findViewById(R.id.button1)).setText("Switch ON");
             switchedOn = false;
-            msgLight.obj = false;
+            bun.putBoolean("msg",false);
             greyOut(isLoggedIn, switchedOn);
         }
 
-        BThandler.sendMessage(msgLight);
+        // use Start service as a hacked way to communicate to service using intents
+        /* Intent Serv = new Intent(this, MyService.class);
+        getIntent().putExtras(bun);
+        startService(Serv);
+        */
+
+
     }
-    */
+
 
     public void openLoginActivity (View view){
 
