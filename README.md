@@ -39,6 +39,7 @@ Yet, it is likely far from bug free, and quite unstable. Case in point, activity
 
 
 Conceivable adaptations:
+
 -Various parts of the system, simulated or otherwise, could be replaced by / incorporated with a car computer.
 
 -The Pi could be forgone if one were to use the phone to display the lights on screen, though this carries it’s own weaknesses and drawbacks. The tradeoff would be a single app; low user investment cost.
