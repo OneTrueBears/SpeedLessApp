@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">SpeedLess</string>
+    <string name="action_settings">Settings</string>
+    <string name="swtichButton">Switch On</string>
+    <string name="bluetoothButton">Bluetooth</string>
+    <string name="statisticsButton">Statistics</string>
+    <string name="friendsButton">Friends</string>
+    <string name="leaderboardsButton">LeaderBoards</string>
+    <string name="speedLess">SpeedLess</string>
+</resources>
