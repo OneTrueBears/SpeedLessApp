@@ -34,7 +34,7 @@ public class ServiceForBluetooth extends Service {
         connectBluetooth();
     }
 
-    /*public ServiceForBluetooth() {
+    public ServiceForBluetooth() {
         super();
         connectBluetooth();
         Log.d("info", "Bluetooth connected. Trying to send speed and speedlimit");
@@ -46,7 +46,7 @@ public class ServiceForBluetooth extends Service {
         }
         mainThread();
 
-    }*/
+    }
 
     @Override
     public IBinder onBind(Intent intent) {
