@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">SpeedLess</string>
     <string name="action_settings">Settings</string>
-    <string name="switchButton">Switch On</string>
+    <string name="switchButton">Switch Off</string>
     <string name="bluetoothButton">Bluetooth</string>
     <string name="statisticsButton">Statistics</string>
     <string name="friendsButton">Friends</string>

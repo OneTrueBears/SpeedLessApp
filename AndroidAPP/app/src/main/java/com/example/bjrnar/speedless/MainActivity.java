@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     SeekBar seek_bar;
     public Boolean isLoggedIn = true;
-    public Boolean switchedOn = false;
+    public Boolean switchedOn = true;
 
     //Bt - Temp?
 
@@ -136,28 +136,32 @@ public class MainActivity extends AppCompatActivity {
         Button b = (Button) findViewById(R.id.button1);
         String ButtonText = b.getText().toString();
         //send msg stuff
-        Bundle bun = new Bundle();
+        //Bundle bun = new Bundle();
+        String str = "";
 
 
 
         if(ButtonText.equals("Switch ON")){
             ((TextView) findViewById(R.id.button1)).setText("Switch OFF");
             switchedOn = true;
-            bun.putBoolean("msg",true);
+            //bun.putBoolean("msg",true);
+            str = "true";
             greyOut(isLoggedIn, switchedOn);
         }
         else{
             ((TextView)findViewById(R.id.button1)).setText("Switch ON");
             switchedOn = false;
-            bun.putBoolean("msg",false);
+            //bun.putBoolean("msg",false);
+            str = "false";
             greyOut(isLoggedIn, switchedOn);
         }
 
         // use Start service as a hacked way to communicate to service using intents
-        /* Intent Serv = new Intent(this, MyService.class);
-        getIntent().putExtras(bun);
+        Intent Serv = new Intent(this, MyService.class);
+        //Serv.putExtras(bun);
+        Serv.putExtra("msg", str);
         startService(Serv);
-        */
+
 
 
     }

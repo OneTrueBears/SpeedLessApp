@@ -35,7 +35,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:text="Switch ON"
+            android:text="Switch OFF"
             android:id="@+id/button1"
             android:onClick="changeSwitchText"
             android:background="#b29696" />

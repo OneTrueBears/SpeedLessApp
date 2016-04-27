@@ -40,30 +40,31 @@ public class MyService extends Service {
     HandlerThread BT_handlerThread;
     HandlerThread VDB_handlerThread;
 
+    Handler BThandler;
+    Handler VDBhandler;
+
    //LIFECYCLE
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         //return super.onStartCommand(intent, flags, startId);
         //return START_STICKY;
-        /*try {
-            boolean bol = intent.getExtras().getBoolean("msg");
+        //none of the above
+        try {
+            //boolean bol = intent.getExtras().getBoolean("msg");
+            String myString = intent.getExtras().getString("msg");
 
-            Message msgB = Message.obtain(BThandler,0);
+            Message msgB = Message.obtain(BThandler,1);
 
-            //Message msgSL = Message.obtain();
-            msgSL.obj = URLspeedLimit;
-            BThandler.sendMessage(msgSL);
-            if (bol == true){
-
-
-            } else {
-
-            }
+            //msgB.obj = bol;
+            msgB.obj = myString;
+            BThandler.sendMessage(msgB);
+            Log.d("info", "Sent light string to BT"); // turn into info
 
         } catch (Exception e){
+            Log.d("error", "Fail in trying to send turn off lights string");
 
-        }*/
+        }
 
 
         return START_NOT_STICKY;
@@ -118,7 +119,7 @@ public class MyService extends Service {
 
         // Create a handler attached to the BT_handlerThread's Looper
         //use this to .sendMessage(Message) AND .post(runnable) INTO the thread
-        final Handler BThandler = new Handler(BT_handlerThread.getLooper()) {
+        BThandler = new Handler(BT_handlerThread.getLooper()) {
             @Override
             public void handleMessage(Message msg) {
                 // Process messages here
@@ -187,7 +188,7 @@ public class MyService extends Service {
 
         // Create a handler attached to the VDB_handlerThread's Looper
         //use this to .sendMessage(Message) AND .post(runnable) INTO the thread
-        final Handler VDBhandler = new Handler(VDB_handlerThread.getLooper()) {
+        VDBhandler = new Handler(VDB_handlerThread.getLooper()) {
             @Override
             public void handleMessage(Message msg) {
                 // Process messages here
