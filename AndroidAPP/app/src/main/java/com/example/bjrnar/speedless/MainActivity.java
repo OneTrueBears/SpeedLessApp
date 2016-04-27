@@ -87,8 +87,8 @@ public class MainActivity extends AppCompatActivity {
             TimeUnit.SECONDS.wait(3000);
         }catch(InterruptedException e){
             Log.e("error", "Interrupted Exception when timesleep");
-        }
-        main();*/
+        }*/
+        main();
 
 
 
@@ -268,17 +268,21 @@ public class MainActivity extends AppCompatActivity {
 
     public void main(){
         for(int i= 0; i < speed.size(); i++){
-            writeSpeed(speed.get(i));
+            writeSpeedlimit(speedlimits.get(i));
+            Log.d("info", "current speed limit: "+ Integer.toString(speedlimits.get(i)));
             try {
                 Log.d("info", "delaying 1 second");
                 TimeUnit.SECONDS.sleep(1);
             }catch(InterruptedException e){
                 Log.e("error", "Interrupted Exception when timesleep");
             }
-            writeSpeedlimit(speedlimits.get(i));
+
+            writeSpeed(speed.get(i));
+            Log.d("info", "current speed: " + Double.toString(speed.get(i)));
+
             try {
-                Log.d("info", "delaying 1 second");
-                TimeUnit.SECONDS.sleep(1);
+                Log.d("info", "delaying 5 second");
+                TimeUnit.SECONDS.sleep(5);
             }catch(InterruptedException e){
                 Log.e("error", "Interrupted Exception when timesleep");
             }

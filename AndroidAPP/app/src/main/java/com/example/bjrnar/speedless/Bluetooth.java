@@ -100,6 +100,7 @@ public class Bluetooth {
 
                         outputStream = socket.getOutputStream();
                         inStream = socket.getInputStream();
+                        Log.d("info", "Outputstream and inputstream created.");
                     }
                 }
                 else {

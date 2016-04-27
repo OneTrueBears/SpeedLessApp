@@ -39,11 +39,12 @@ public class ServiceForBluetooth extends Service {
         connectBluetooth();
         Log.d("info", "Bluetooth connected. Trying to send speed and speedlimit");
         try {
-            Log.d("info", "delaying 3 second");
-            TimeUnit.SECONDS.sleep(3);
+            Log.d("info", "delaying 1 second");
+            TimeUnit.SECONDS.sleep(1);
         }catch(InterruptedException e){
             Log.e("error", "Interrupted Exception when timesleep");
         }
+        Log.d("info", "Trying to run main program");
         mainThread();
 
     }
@@ -59,14 +60,14 @@ public class ServiceForBluetooth extends Service {
         for(int i= 0; i < speed.size(); i++){
             writeSpeed(speed.get(i));
             try {
-                Log.d("info", "delaying 3 second");
+                Log.d("info", "delaying 1 second");
                 TimeUnit.SECONDS.sleep(1);
             }catch(InterruptedException e){
                 Log.e("error", "Interrupted Exception when timesleep");
             }
             writeSpeedlimit(speedlimits.get(i));
             try {
-                Log.d("info", "delaying 3 second");
+                Log.d("info", "delaying 1 second");
                 TimeUnit.SECONDS.sleep(1);
             }catch(InterruptedException e){
                 Log.e("error", "Interrupted Exception when timesleep");
