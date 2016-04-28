@@ -32,7 +32,17 @@ public class MyService extends Service {
     boolean alive = true;
 
     //simulated speed array, its increment
-    ArrayList<Double> speed = new ArrayList<Double>(Arrays.asList(45.0, 52.0, 35.0, 29.0, 39.0, 45.0, 51.0, 55.0, 59.0, 45.0, 33.0, 30.0, 35.0, 32.0, 35.0, 36.0, 45.0, 55.0));
+    ArrayList<Double> speed = new ArrayList<Double>(Arrays.asList(45.0,52.0,35.0,29.0,39.0,45.0,51.0,55.0,59.0,45.0,33.0,30.0,35.0,32.0,35.0,36.0,45.0, 55.0));
+    //The below two are not used, they are just hard references for the coordinates used, and the data we then retrive.
+    //Here for demo purposes only, to have something to easily point to in the code 
+    ArrayList<Integer> speedlimits = new ArrayList<Integer>(Arrays.asList(50,50,30,30,50,50,50,50,50,30,30,30,50,30,30,30,50,50));
+    String[] coordinates = new String[]{"63.421943" , "10.396705" , "63.420941",
+            "10.400418","63.419477","10.404227","63.419266","10.404978", "63.420305","10.405166",
+            "63.421716","10.400689","63.422722","10.395389","63.421715", "10.394824",
+            "63.419584", "10.395918", "63.417942", "10.395918", "63.418489", "10.394759", "63.419070",
+            "10.395295","63.419843", "10.395799","63.420352", "10.394812","63.420640", "10.393664",
+            "63.421082", "10.394340", "63.421994", "10.394673", "63.422752", "10.394469"};
+
     int increment = 0;
 
     URLHandler url = new URLHandler();
@@ -131,17 +141,21 @@ public class MyService extends Service {
                     //float speedLimit = Float.parseFloat(msg.toString());
                     float speedLimit = Float.parseFloat(msg.obj.toString());
 
-                    Log.d("info", "Writing speedlimit :" + speedLimit);
+
                     writeSpeedlimit(speedLimit);
+                    Log.d("info", "Writing speedlimit :" + speedLimit);
                     try {
                         Log.d("info", "delaying 1 second");
                         TimeUnit.SECONDS.sleep(1);
                     } catch (InterruptedException e) {
                         Log.e("error", "Interrupted Exception when timesleep");
                     }
-                    writeSpeed(speed.get(increment));
+
+                    double CurrentSpeed = speed.get(increment);
+                    writeSpeed(CurrentSpeed);
+                    Log.d("info", "Writing speed :" + CurrentSpeed );
                     try {
-                        TimeUnit.SECONDS.sleep(1);
+                        TimeUnit.SECONDS.sleep(5);
                     } catch (InterruptedException e) {
                         Log.e("error", "Interrupted Exception when timesleep");
                     }
