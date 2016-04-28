@@ -34,7 +34,7 @@ public class MyService extends Service {
     //simulated speed array, its increment
     ArrayList<Double> speed = new ArrayList<Double>(Arrays.asList(45.0,52.0,35.0,29.0,39.0,45.0,51.0,55.0,59.0,45.0,33.0,30.0,35.0,32.0,35.0,36.0,45.0, 55.0));
     //The below two are not used, they are just hard references for the coordinates used, and the data we then retrive.
-    //Here for demo purposes only, to have something to easily point to in the code 
+    //Here for demo purposes only, to have something to easily point to in the code
     ArrayList<Integer> speedlimits = new ArrayList<Integer>(Arrays.asList(50,50,30,30,50,50,50,50,50,30,30,30,50,30,30,30,50,50));
     String[] coordinates = new String[]{"63.421943" , "10.396705" , "63.420941",
             "10.400418","63.419477","10.404227","63.419266","10.404978", "63.420305","10.405166",
